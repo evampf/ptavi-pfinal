@@ -34,12 +34,11 @@ class XMLHandler(ContentHandler):
 	            dicc[atributo] = attrs.get(atributo, "")
 	        diccname = {name: dicc}
 	        self.lista.append(diccname)
-print ("Llego aqui")	        
+		print ("Llego aqui")
 
-with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
-    if METHOD == "register":
-        Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
-        Message += ("Expires: " + EXPIRES + "\r\n\r\n")
-        print("Enviando:", Message)
-    print("Aqui tambien")
+		if METHOD == "register":
+			Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
+			Message += ("Expires: " + EXPIRES + "\r\n\r\n")
+			print("Enviando:", Message)
+			print("Aqui tambien")
 
