@@ -2,43 +2,25 @@
 
 import socket
 import sys
+import os
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
+from uaserver import XMLHandler
 
 
-CONFIG = sys.argv[1]
-METHOD = sys.argv [2].upper()
-OPCION = sys.argv [3]
+if __name__ == "__main__":  
+	try:
+		CONFIG = sys.argv[1]
+		METHOD = sys.argv [2].upper()
+		OPCION = sys.argv [3]
+	except Exception:
+		sys.exit('Usage: python client.py config method option')
 
-if len(sys.argv) != 4:
-    sys.exit("Usage: python client.py config method option")
+	if len(sys.argv) != 4:
+		sys.exit("Usage: python client.py config method option")
+	
 
-
-
-class XMLHandler(ContentHandler):  
-
-	def __init__(self):
-	    self.lista = []
-	    self.DicEtiquetas = {
-	        'account': ['userame', 'passwd'],
-	        'uaserver':['ip','puerto'],
-	        'rtpaudio':['puerto'],
-	        'regproxy':['ip','puerto'],
-	        'log':['path'],
-	        'audio':['path']}
-
-	def startElement(self, name, attrs):
-	    if name in self.DicEtiquetas:
-	        dicc = {}
-	        for atributo in self.DicEtiquetas[name]:
-	            dicc[atributo] = attrs.get(atributo, "")
-	        diccname = {name: dicc}
-	        self.lista.append(diccname)
-		print ("Llego aqui")
-
-		if METHOD == "register":
-			Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
-			Message += ("Expires: " + EXPIRES + "\r\n\r\n")
-			print("Enviando:", Message)
-			print("Aqui tambien")
-
+	parser = make_parser()
+	cHandler = XMLHandler()
+	parser.setContentHandler(cHandler)
+	parser.parse(open(CONFIG))
