@@ -11,8 +11,8 @@ from uaserver import XMLHandler
 if __name__ == "__main__":  
 	try:
 		CONFIG = sys.argv[1]
-		METHOD = sys.argv [2].upper()
-		OPCION = sys.argv [3]
+		METHOD = sys.argv[2].upper()
+		OPCION = sys.argv[3]
 	except Exception:
 		sys.exit('Usage: python client.py config method option')
 
@@ -24,3 +24,11 @@ if __name__ == "__main__":
 	cHandler = XMLHandler()
 	parser.setContentHandler(cHandler)
 	parser.parse(open(CONFIG))
+	listaUA = cHandler.get_tags()
+
+	my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+	my_socket.connect((IP_PROXY, int(PORT_PROXY)))
+	my_socket.send(bytes(LINE, 'utf-8') + b'\r\n')
+
+
