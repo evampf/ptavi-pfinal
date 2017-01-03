@@ -32,19 +32,7 @@ class XMLHandler(ContentHandler):
         return self.lista            
 	        
 
-    def handle(self):
-        while 1:
-            line = self.rfile.read()
-            LINE = text.decode('utf-8')
-            Words_LINES = LINE.split()
-            REQUEST = Words_LINES[0]
-            print("La peticion es: ", REQUEST)
-            print("Listening...")
 
-            if METHOD == "register":
-                Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
-                Message += ("Expires: " + EXPIRES + "\r\n\r\n")
-                print("Enviando:", Message)
 
 if __name__ == "__main__":
     serv = socketserver.UDPServer((sys.argv[1], ContentHandler))
@@ -54,4 +42,24 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Finalizado servidor")
 
+class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
+    dicc_clientes = {}
+    nonce_dicc = {}
+
+
+    def handle(self):
+        while 1:
+            line = self.rfile.read()
+            data_text = text.decode('utf-8')
+            Words_datas = data_text.split()
+            REQUEST = Words_datas[0]
+            print("La peticion es: ", REQUEST)
+            print("Listening...")
+            if not line:
+                break
+
+            if REQUEST == "register":
+                Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
+                Message += ("Expires: " + EXPIRES + "\r\n\r\n")
+                print("Enviando:", Message)
