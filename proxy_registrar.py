@@ -58,13 +58,28 @@ if __name__ == "__main__":
     CONFIG = sys.argv [1]
     if len(sys.argv) != 2:
         sys.exit("Usage: python proxy_registrar.py config")
-    
+
+    #Saca el contenido del fichero XML 
     parser = make_parser()
     cHandler = XMLHandler()
     parser.setContentHandler(cHandler)
     parser.parse(open(CONFIG))
-    config = cHandler.get_config()
-    serv = socketserver.UDPServer(("",int(config[2])),SIPProxyRegisterHandler)
+    config = cHandler.get_tags()
+
+
+    #Mete los valores del XML en variables
+    NAME_SERVER = config[0]['server']['name']
+    IP_SERVER = config[0]['server']['ip']
+    PUERTO_SERVER = config[0]['server']['puerto']
+    PATH_DATABASE = config[1]['database']['path']
+    PASSWD_DATABASE = config[1]['database']['passwdpath']
+    PATH_LOG = config[2]['log']['path']
+
+
+    PORT = int(PUERTO_SERVER)
+    IP = '127.0.0.1'
+    serv = socketserver.UDPServer((IP,PORT),SIPProxyRegisterHandler)
+
     print("Lanzando servidor UDP de eco...")
     try:
         serv.serve_forever()
