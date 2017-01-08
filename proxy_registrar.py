@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 
-import socketserver
-import sys
-import time
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
-
+import socketserver
+import socket
+import sys
+import time
+import json
+import hashlib
+import random
 
 class XMLHandler(ContentHandler):   
 
@@ -19,9 +22,9 @@ class XMLHandler(ContentHandler):
     def startElement(self, name, attrs):
         if name in self.DicEtiquetas:
             dicc = {}
-            for item in self.DicEtiquetas[name]:
-                dicc[time] = attrs.get(item,"")
-            diccname = {name : dicc}
+            for atributo in self.DicEtiquetas[name]:
+                dicc[atributo] = attrs.get(atributo, "")
+            diccname = {name: dicc}
             self.lista.append(diccname)
 
     def get_tags(self):
@@ -52,6 +55,12 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                 Message += ("Expires: " + EXPIRES + "\r\n\r\n")
                 user = data_text[1].split(':')[1]
                 print("Enviando:", Message)
+def PORTValid(port):
+    try:
+        Puerto = int(port)
+    except ValueError:
+        sys.exit("El puerto debe ser integer")
+    return Puerto
 
 if __name__ == "__main__":
 
@@ -70,7 +79,7 @@ if __name__ == "__main__":
     PROXY = cHandler.get_tags()
 
     #Mete los valores del XML en variables
-    #SERVER_NAME = config['server_name']
+    #SERVER_NAME = PROXY['server_name']
     #SERVER_IP = config['server_ip']
     #SERVER_PUERTO = config['server_puerto']
     #PATH_DATABASE = config[1]['database']['path']
@@ -86,7 +95,7 @@ if __name__ == "__main__":
     #msgprox = SERVER_PUERTO + '...' + '\r\n'
     #print ('msgprox')
 
-    PORT = int(PROXY['server_puerto'])
+    PORT = PORTValid(PROXY['server_puerto'])
     IP = '127.0.0.1'
     serv = socketserver.UDPServer((IP,PORT),SIPProxyRegisterHandler)
     try:

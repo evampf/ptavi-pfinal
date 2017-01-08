@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <config>
 	<server name="EvaPerez" ip="127.0.0.1" puerto="1009"/>
 	<database path="" passwdpath=""/>
