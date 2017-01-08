@@ -12,15 +12,15 @@ class XMLHandler(ContentHandler):
     def __init__(self):
         self.lista = []
         self.DicEtiquetas = {
-            'server':['name','ip','data'],
-            'database':['path','passwdpath'],
-            'log':['path']}
+                            'server': ['name','ip','data'],
+                            'database': ['path','passwdpath'],
+                            'log': ['path']}
 
     def startElement(self, name, attrs):
         if name in self.DicEtiquetas:
             dicc = {}
-            for name in self.DicEtiquetas[name]:
-                dicc[name] = attrs.get(name,"")
+            for item in self.DicEtiquetas[name]:
+                dicc[time] = attrs.get(item,"")
             diccname = {name : dicc}
             self.lista.append(diccname)
 
@@ -54,34 +54,42 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                 print("Enviando:", Message)
 
 if __name__ == "__main__":
-    
-    CONFIG = sys.argv [1]
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python proxy_registrar.py config")
+
+    try:    
+        CONFIG = sys.argv [1]
+        if len(sys.argv) != 2:
+            sys.exit("Usage: python proxy_registrar.py config")
+    except IndexError:
+        sys.exit("Usage: python3 proxy.registrar.py config")
 
     #Saca el contenido del fichero XML 
     parser = make_parser()
     cHandler = XMLHandler()
     parser.setContentHandler(cHandler)
     parser.parse(open(CONFIG))
-    config = cHandler.get_tags()
-
+    PROXY = cHandler.get_tags()
 
     #Mete los valores del XML en variables
-    NAME_SERVER = config[0]['server']['name']
-    IP_SERVER = config[0]['server']['ip']
-    PUERTO_SERVER = config[0]['server']['puerto']
-    PATH_DATABASE = config[1]['database']['path']
-    PASSWD_DATABASE = config[1]['database']['passwdpath']
-    PATH_LOG = config[2]['log']['path']
+    #SERVER_NAME = config['server_name']
+    #SERVER_IP = config['server_ip']
+    #SERVER_PUERTO = config['server_puerto']
+    #PATH_DATABASE = config[1]['database']['path']
+    #PASSWD_DATABASE = config[1]['database']['passwdpath']
+    #PATH_LOG = config[2]['log']['path']
+
+    #fichero = open(PATH_DATABASE, "a")
+    #fichero.close()
 
 
-    PORT = int(PUERTO_SERVER)
+    
+    #msgprox = 'server' + SERVER_NAME + 'listening at port'
+    #msgprox = SERVER_PUERTO + '...' + '\r\n'
+    #print ('msgprox')
+
+    PORT = int(PROXY['server_puerto'])
     IP = '127.0.0.1'
     serv = socketserver.UDPServer((IP,PORT),SIPProxyRegisterHandler)
-
-    print("Lanzando servidor UDP de eco...")
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
-        print("Finalizado servidor")
+        sys.exit("Finish")
