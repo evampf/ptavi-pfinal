@@ -10,6 +10,13 @@ import json
 import hashlib
 import random
 
+try:    
+    CONFIG = sys.argv [1]
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python proxy_registrar.py config")
+except IndexError:
+        sys.exit("Usage: python3 proxy.registrar.py config")
+
 class XMLHandler(ContentHandler):   
 
     def __init__(self):
@@ -29,6 +36,21 @@ class XMLHandler(ContentHandler):
 
     def get_tags(self):
         return self.lista     
+    
+#Saca el contenido del fichero XML 
+parser = make_parser()
+cHandler = XMLHandler()
+parser.setContentHandler(cHandler)
+parser.parse(open(CONFIG))
+PROXY = cHandler.get_tags()
+
+#Mete los valores del XML en variables
+SERVER_NAME = PROXY[0]['server']['name']
+SERVER_IP = PROXY[0]['server']['ip']
+SERVER_PUERTO = PROXY[0]['server']['puerto']
+PATH_DATABASE = PROXY[1]['database']['path']
+PASSWD_DATABASE = PROXY[1]['database']['passwdpath']
+PATH_LOG = PROXY[2]['log']['path']
 
 
 class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
@@ -55,48 +77,17 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                 Message += ("Expires: " + EXPIRES + "\r\n\r\n")
                 user = data_text[1].split(':')[1]
                 print("Enviando:", Message)
-def PORTValid(port):
-    try:
-        Puerto = int(port)
-    except ValueError:
-        sys.exit("El puerto debe ser integer")
-    return Puerto
 
 if __name__ == "__main__":
 
-    try:    
-        CONFIG = sys.argv [1]
-        if len(sys.argv) != 2:
-            sys.exit("Usage: python proxy_registrar.py config")
-    except IndexError:
-        sys.exit("Usage: python3 proxy.registrar.py config")
-
-    #Saca el contenido del fichero XML 
-    parser = make_parser()
-    cHandler = XMLHandler()
-    parser.setContentHandler(cHandler)
-    parser.parse(open(CONFIG))
-    PROXY = cHandler.get_tags()
-
-    #Mete los valores del XML en variables
-    SERVER_NAME = PROXY[0]['server']['name']
-    SERVER_IP = PROXY[0]['server']['ip']
-    SERVER_PUERTO = PROXY[0]['server']['puerto']
-    PATH_DATABASE = PROXY[1]['database']['path']
-    PASSWD_DATABASE = PROXY[1]['database']['passwdpath']
-    PATH_LOG = PROXY[2]['log']['path']
-
-
-
-
-
-    msgprox = 'server' + SERVER_NAME + 'listening at port'
-    msgprox = SERVER_PUERTO + '...' + '\r\n'
-    print ('msgprox')
+    msgprox = 'server ' + SERVER_NAME + ' listening at port '
+    msgprox += SERVER_PUERTO + '...' + '\r\n'
+    print (msgprox)
 
     PORT = int(SERVER_PUERTO)
-    IP = '127.0.0.1'
+    IP = SERVER_IP
     serv = socketserver.UDPServer((IP,PORT),SIPProxyRegisterHandler)
+    
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
