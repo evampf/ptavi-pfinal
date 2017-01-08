@@ -15,7 +15,7 @@ class XMLHandler(ContentHandler):
     def __init__(self):
         self.lista = []
         self.DicEtiquetas = {
-                            'server': ['name','ip','data'],
+                            'server': ['name','ip','puerto'],
                             'database': ['path','passwdpath'],
                             'log': ['path']}
 
@@ -79,23 +79,22 @@ if __name__ == "__main__":
     PROXY = cHandler.get_tags()
 
     #Mete los valores del XML en variables
-    #SERVER_NAME = PROXY['server_name']
-    #SERVER_IP = config['server_ip']
-    #SERVER_PUERTO = config['server_puerto']
-    #PATH_DATABASE = config[1]['database']['path']
-    #PASSWD_DATABASE = config[1]['database']['passwdpath']
-    #PATH_LOG = config[2]['log']['path']
-
-    #fichero = open(PATH_DATABASE, "a")
-    #fichero.close()
+    SERVER_NAME = PROXY[0]['server']['name']
+    SERVER_IP = PROXY[0]['server']['ip']
+    SERVER_PUERTO = PROXY[0]['server']['puerto']
+    PATH_DATABASE = PROXY[1]['database']['path']
+    PASSWD_DATABASE = PROXY[1]['database']['passwdpath']
+    PATH_LOG = PROXY[2]['log']['path']
 
 
-    
-    #msgprox = 'server' + SERVER_NAME + 'listening at port'
-    #msgprox = SERVER_PUERTO + '...' + '\r\n'
-    #print ('msgprox')
 
-    PORT = PORTValid(PROXY['server_puerto'])
+
+
+    msgprox = 'server' + SERVER_NAME + 'listening at port'
+    msgprox = SERVER_PUERTO + '...' + '\r\n'
+    print ('msgprox')
+
+    PORT = int(SERVER_PUERTO)
     IP = '127.0.0.1'
     serv = socketserver.UDPServer((IP,PORT),SIPProxyRegisterHandler)
     try:
