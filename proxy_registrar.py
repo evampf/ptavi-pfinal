@@ -61,15 +61,14 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
     def handle(self):
         while 1:
-            line = self.rfile.read()
+            text = self.rfile.read()
             data_text = text.decode('utf-8')
-            Words_datas = data_text.split()
-            REQUEST = Words_datas[0]
+            REQUEST = data_text.split(' ')[0].upper()
             Dir_IP = self.client_address[0]
             Puerto = self.client_address[1]
             print("La peticion es: ", REQUEST)
             print("Listening...")
-            if not line:
+            if not text:
                 break
 
             if REQUEST == "register":
