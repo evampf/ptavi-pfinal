@@ -2,7 +2,7 @@
 	<account username="evam.perez" passwd="em.456"/>
 	<uaserver ip="127.0.0.1" puerto="3334"/>
 	<rtpaudio puerto="2006"/>
-	<regproxy ip="127.0.0.1" puerto="1009"/>
+	<regproxy ip="127.0.0.1" puerto="1340"/>
 	<log path=""/>
 	<audio path=""/>
 </config>

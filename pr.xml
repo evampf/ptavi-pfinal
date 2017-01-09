@@ -1,5 +1,5 @@
 <config>
-	<server name="EvaPerez" ip="127.0.0.1" puerto="1009"/>
+	<server name="EvaPerez" ip="127.0.0.1" puerto="1340"/>
 	<database path="" passwdpath="password.txt"/>
 	<log path=""/>
 </config>

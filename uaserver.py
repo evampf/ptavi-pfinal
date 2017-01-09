@@ -40,6 +40,7 @@ class XMLHandler(ContentHandler):
 			REQUEST = Words_LINES[0]
 			print("La peticion es: ", REQUEST)
 			print("Listening...")
+			
 
 if __name__ == "__main__":
 	serv = socketserver.UDPServer(('', 6001), XMLHandler)
