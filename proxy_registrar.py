@@ -60,22 +60,21 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
 
     def handle(self):
-        while 1:
-            text = self.rfile.read()
-            data_text = text.decode('utf-8')
-            REQUEST = data_text.split(' ')[0].upper()
-            Dir_IP = self.client_address[0]
-            Puerto = self.client_address[1]
-            print("La peticion es: ", REQUEST)
-            print("Listening...")
-            if not text:
-                break
+        #while 1:
+        text = self.rfile.read()
+        data_text = text.decode('utf-8')
+        REQUEST = data_text.split(' ')[0].upper()
+        Dir_IP = self.client_address[0]
+        Puerto = self.client_address[1]
+        print("La peticion es: ", REQUEST)
+        print("Listening...")
 
-            if REQUEST == "register":
-                Message = ("REGISTER sip:" + DIRECCTION + " SIP/2.0\r\n")
-                Message += ("Expires: " + EXPIRES + "\r\n\r\n")
-                user = data_text[1].split(':')[1]
-                print("Enviando:", Message)
+
+        #if REQUEST == "REGISTER":
+        #    Message = ("REGISTER sip:" + DIRECTION + " SIP/2.0\r\n")
+        #    Message += ("Expires: " + EXPIRES + "\r\n\r\n")
+        #    user = data_text[1].split(':')[1]
+        #    print("Enviando:", Message)
 
 if __name__ == "__main__":
 
