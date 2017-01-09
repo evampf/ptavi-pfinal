@@ -55,7 +55,7 @@ ACCOUNT_USERNAME = UACLIENT[0]['account']['username']
 ACCOUNT_PASSWD = UACLIENT[0]['account']['passwd']
 IP_SERVER = UACLIENT[1]['uaserver']['ip']
 PUERTO_SERVER = UACLIENT[1]['uaserver']['puerto']
-AUDIO_IP = UACLIENT[2]['rtpaudio']['puerto']
+AUDIO_PUERTO = UACLIENT[2]['rtpaudio']['puerto']
 PROXY_IP = UACLIENT[3]['regproxy']['ip']
 PROXY_PUERTO = UACLIENT[3]['regproxy']['puerto']
 LOG_PATH = UACLIENT[4]['log']['path']
@@ -68,7 +68,13 @@ if __name__ == "__main__":
     #Sin autenticación
 		LINEA = "REGISTER sip: " + ACCOUNT_USERNAME + ":" + PUERTO_SERVER + " SIP/2.0\r\n" + "Expires: " + OPCION + "\r\n"
 		print(LINEA)
-
+	if METHOD == "INVITE":
+		LINEA = "INVITE sip: " + OPCION + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
+		LINEA += ACCOUNT_USERNAME + " " + IP_SERVER + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" 
+		LINEA += AUDIO_PUERTO + " RTP\r\n"
+		print(LINEA)
+	if METHOD == "BYE":
+		LINEA = "BYE sip: " + OPCION + " SIP/2.0\r\n"
 
 	my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
