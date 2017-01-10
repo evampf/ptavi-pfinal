@@ -56,39 +56,52 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
     dicc_clientes = {}
 
+    def password2json(self):
+        archivo = open("password.json",'r')
+        self.dicc_passw = json.upload(archivo)
+
     def register2json(self):
     
         json_file = open("registered.json", "w")
         json.dump(self.dicc_clientes, json_file, separators=(',', ': '), indent=4)
         json_file.close()
-        print(dicc_clientes)
 
     def handle(self):
         #while 1:
             text = self.rfile.read()
             data_text = text.decode('utf-8')
             METHOD = data_text.split(' ')[0].upper()
+            USER = data_text.split(' ')[2].upper()
+            PUERTO_USER = data_text.split(' ')[3].upper()
+            EXPIRES = data_text.split(' ')[5].upper()
+            expires = int(EXPIRES)
             Dir_IP = self.client_address[0]
             Puerto = self.client_address[1]
-            Expires = int(data_text[data_text.find("Expires: ") + 9: data_text.find("\r\n\r\n")])
+
             print("La peticion es: ", METHOD)
             print("Listening...")
 
             if METHOD == "REGISTER":
                 #Sin autenticación
                 LINEA = "REGISTER sip: " + ":" + " SIP/2.0\r\n" + "Expires: " + "\r\n"
-                Time_Exp = Expires + int(time.time())
+                Hora_actual = time.time()
+                Time_Exp = Hora_actual + int(EXPIRES)
                 Dir_IP = self.client_address[0]
-                str_ex = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(Time_Exp))
-                if Expires == 0:
-                    del self.dicc_clientes[Dir_IP]
-                    self.register2json()
-                elif Expires > 0:
-                    self.dicc_clientes[data_text] = {'address': Dir_IP, 'Expires': str_ex}
-                    self.register2json()
-                
+
+                self.dicc_clientes[USER] = {"address": Dir_IP, 
+                                            "port": PUERTO_USER, 
+                                            "tiempo_exp": Time_Exp}
+
+                Lista_Expirados = []
+                for user in self.dicc_clientes:
+                    if Hora_actual >= self.dicc_clientes[user]["tiempo_exp"]:
+                        Lista_Expirados.append(user)
+                for user in Lista_Expirados:
+                    del self.dicc_clientes[user]
+
+                self.register2json
                 self.wfile.write(b" SIP/2.0 200 OK\r\n\r\n")
-                
+                print(self.dicc_clientes)
 
             elif METHOD == "INVITE":
                 LINEA = "INVITE sip: " + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
