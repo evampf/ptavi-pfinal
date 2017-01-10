@@ -1,7 +1,7 @@
-</config>
-	<account username="evam.perez" passwd="em.456"/>
-	<uaserver ip="127.0.0.1" puerto="3334"/>
-	<rtpaudio puerto="2006"/>
+<config>
+	<account username="ronwhisley@harry.com" passwd="ron3"/>
+	<uaserver ip="127.0.0.1" puerto="3344"/>
+	<rtpaudio puerto="2007"/>
 	<regproxy ip="127.0.0.1" puerto="1340"/>
 	<log path=""/>
 	<audio path=""/>
