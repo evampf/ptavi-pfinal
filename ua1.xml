@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <config>
-	<account username="evam.perez" passwd="em.456"/>
+	<account username="hermione@harry.com" passwd="herm4"/>
 	<uaserver ip="127.0.0.1" puerto="3335"/>
 	<rtpaudio puerto="2007"/>
 	<regproxy ip="127.0.0.1" puerto="1340"/>
