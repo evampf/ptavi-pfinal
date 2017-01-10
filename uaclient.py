@@ -64,10 +64,19 @@ AUDIO_PATH = UACLIENT[5]['audio']['path']
 
 if __name__ == "__main__":
 
+
 	if METHOD == "REGISTER":
     #Sin autenticación
 		LINEA = "REGISTER sip: " + ACCOUNT_USERNAME + ":" + PUERTO_SERVER + " SIP/2.0\r\n" + "Expires: " + OPCION + "\r\n"
 		print(LINEA)
+		my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+		my_socket.connect((PROXY_IP, int(PROXY_PUERTO)))
+		my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
+		data = my_socket.recv(1024)
+		print(data.decode('utf-8'))
+			#RecibidoRegistrar = data.decode('utf-8').split('\r\n\r\n')[0:-1]
+
 	if METHOD == "INVITE":
 		LINEA = "INVITE sip: " + OPCION + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
 		LINEA += ACCOUNT_USERNAME + " " + IP_SERVER + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" 
@@ -76,10 +85,6 @@ if __name__ == "__main__":
 	if METHOD == "BYE":
 		LINEA = "BYE sip: " + OPCION + " SIP/2.0\r\n"
 
-	my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	my_socket.connect((PROXY_IP, int(PROXY_PUERTO)))
-	my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
 
 
 

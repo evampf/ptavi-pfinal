@@ -52,29 +52,56 @@ PATH_DATABASE = PROXY[1]['database']['path']
 PASSWD_DATABASE = PROXY[1]['database']['passwdpath']
 PATH_LOG = PROXY[2]['log']['path']
 
-
 class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
     dicc_clientes = {}
-    nonce_dicc = {}
 
+    def register2json(self):
+    
+        json_file = open("registered.json", "w")
+        json.dump(self.dicc_clientes, json_file, separators=(',', ': '), indent=4)
+        json_file.close()
+        print(dicc_clientes)
 
     def handle(self):
         #while 1:
-        text = self.rfile.read()
-        data_text = text.decode('utf-8')
-        REQUEST = data_text.split(' ')[0].upper()
-        Dir_IP = self.client_address[0]
-        Puerto = self.client_address[1]
-        print("La peticion es: ", REQUEST)
-        print("Listening...")
+            text = self.rfile.read()
+            data_text = text.decode('utf-8')
+            METHOD = data_text.split(' ')[0].upper()
+            Dir_IP = self.client_address[0]
+            Puerto = self.client_address[1]
+            Expires = int(data_text[data_text.find("Expires: ") + 9: data_text.find("\r\n\r\n")])
+            print("La peticion es: ", METHOD)
+            print("Listening...")
+
+            if METHOD == "REGISTER":
+                #Sin autenticación
+                LINEA = "REGISTER sip: " + ":" + " SIP/2.0\r\n" + "Expires: " + "\r\n"
+                Time_Exp = Expires + int(time.time())
+                Dir_IP = self.client_address[0]
+                str_ex = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(Time_Exp))
+                if Expires == 0:
+                    del self.dicc_clientes[Dir_IP]
+                    self.register2json()
+                elif Expires > 0:
+                    self.dicc_clientes[data_text] = {'address': Dir_IP, 'Expires': str_ex}
+                    self.register2json()
+                
+                self.wfile.write(b" SIP/2.0 200 OK\r\n\r\n")
+                
+
+            elif METHOD == "INVITE":
+                LINEA = "INVITE sip: " + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
+                LINEA += " " + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" + " RTP\r\n"
+
+            elif METHOD == "BYE":
+                LINEA = "BYE sip: " + " SIP/2.0\r\n"
+
+            else:
+                print("Mal")
 
 
-        #if REQUEST == "REGISTER":
-        #    Message = ("REGISTER sip:" + DIRECTION + " SIP/2.0\r\n")
-        #    Message += ("Expires: " + EXPIRES + "\r\n\r\n")
-        #    user = data_text[1].split(':')[1]
-        #    print("Enviando:", Message)
+
 
 if __name__ == "__main__":
 
@@ -85,7 +112,6 @@ if __name__ == "__main__":
     PORT = int(SERVER_PUERTO)
     IP = SERVER_IP
     serv = socketserver.UDPServer((IP,PORT),SIPProxyRegisterHandler)
-    
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
