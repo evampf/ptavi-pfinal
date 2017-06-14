@@ -28,10 +28,10 @@ class XMLHandler(ContentHandler):
 
     def startElement(self, name, attrs):
         if name in self.DicEtiquetas:
-            dicc = {}
+            dicc_clientes = {}
             for atributo in self.DicEtiquetas[name]:
-                dicc[atributo] = attrs.get(atributo, "")
-            diccname = {name: dicc}
+                dicc_clientes[atributo] = attrs.get(atributo, "")
+            diccname = {name: dicc_clientes}
             self.lista.append(diccname)
 
     def get_tags(self):
@@ -56,32 +56,55 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
     dicc_clientes = {}
 
-    def password2json(self):
-        archivo = open("password.json",'r')
-        self.dicc_passw = json.upload(archivo)
+    #def password2json(self):
+    #    archivo = open("password.json",'r')
+    #   self.dicc_passw = json.upload(archivo)
 
     def register2json(self):
-    
+        """Archivo json de registro."""
         json_file = open("registered.json", "w")
-        json.dump(self.dicc_clientes, json_file, separators=(',', ': '), indent=4)
+        json.dump(self.dicc_clientes, json_file)
         json_file.close()
+
+    def usuariosregistrados(dicc_clientes, Clientes):
+        # Función para ver si un usuario está registrado, nos devuelve 0 si el
+        # usuario no está registrado con ninguna de las claves, en caso cotrario se
+        # devuelven los datos del cliente
+        if Clientes not in dicc_clientes.keys():
+            datos = '0'
+        else:
+            datos = dicc_clientes[Clientes]
+        return datos
+
+    def json2registered(self):
+        """Comprobacion de json."""
+        try:
+            #("Estamos probando")
+            with open("registered.json", "r") as file:
+                self.dicc_clientes = json.load(file)
+        except:
+                pass
+
 
     def handle(self):
         #while 1:
             text = self.rfile.read()
             data_text = text.decode('utf-8')
-            METHOD = data_text.split(' ')[0].upper()
-            USER = data_text.split(' ')[2].upper()
-            PUERTO_USER = data_text.split(' ')[3].upper()
-            EXPIRES = data_text.split(' ')[5].upper()
-            expires = int(EXPIRES)
-            Dir_IP = self.client_address[0]
-            Puerto = self.client_address[1]
-
+            Data_lines = data_text.split()
+            METHOD = Data_lines[0].upper()
+            LINEA_SIP = Data_lines[1].split(':')
+            USER = Data_lines[2].upper()
+            PUERTO_USER = Data_lines[3].upper()
             print("La peticion es: ", METHOD)
             print("Listening...")
 
-            if METHOD == "REGISTER":
+            if METHOD == 'REGISTER':
+                
+                EXPIRES = data_text.split(' ')[5].upper()
+                expires = int(EXPIRES)
+                Dir_IP = self.client_address[0]
+                Puerto = self.client_address[1]
+
                 #Sin autenticación
                 LINEA = "REGISTER sip: " + ":" + " SIP/2.0\r\n" + "Expires: " + "\r\n"
                 Hora_actual = time.time()
@@ -103,9 +126,42 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                 self.wfile.write(b" SIP/2.0 200 OK\r\n\r\n")
                 print(self.dicc_clientes)
 
-            elif METHOD == "INVITE":
-                LINEA = "INVITE sip: " + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
-                LINEA += " " + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" + " RTP\r\n"
+            elif METHOD == 'INVITE':
+                
+                print (data_text)
+                
+                US_INVITADO = Data_lines[2]
+                print("USUARIO INVITADO:", US_INVITADO)
+                US_ORIGEN = Data_lines[7].split("=")[1]
+                print("USUARIO ORIGEN:", US_ORIGEN)
+
+                print("hasta aqui llega ok")
+                
+                with open("registered.json", "r") as fichero:
+                    self.dicc_clientes = json.load(fichero)
+                    
+                    Cliente_reg = self.usuariosregistrados()
+                    if usuariosregistrados == '0':
+                        msg = "SIP/2.0 404 User Not Found\r\n" + "Via: SIP/2.0/UDP " + "branch=z9hG4bKnashds7\r\n\r\n"
+                        self.wfile.write(bytes(msg,'utf-8'))
+                    else:
+                        IP_Registrada = Cliente_reg[0]
+                        print (IP_Registrada)
+                        Puerto_Registrado = Cliente_reg[1]
+                        LINEA = "INVITE sip: " + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
+                        LINEA += " " + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" + " RTP\r\n"
+                        my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                        my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                        my_socket.connect((SERVER_IP, int(SERVER_PUERTO)))
+                        my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
+                        data = my_socket.recv(1024)
+                    self.json2registered
+
+
+
+
+
+
 
             elif METHOD == "BYE":
                 LINEA = "BYE sip: " + " SIP/2.0\r\n"
