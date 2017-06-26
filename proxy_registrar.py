@@ -10,6 +10,7 @@ import time
 import json
 import hashlib
 import random
+import time
 
 try:    
     CONFIG = sys.argv [1]
@@ -17,6 +18,13 @@ try:
         sys.exit("Usage: python proxy_registrar.py config")
 except IndexError:
         sys.exit("Usage: python3 proxy.registrar.py config")
+
+def FICH_LOG(Evento):
+    
+    fichero = open('LogProxy.txt', 'a+')
+    HoraActual = time.gmtime(time.time())
+    HoraActual = time.strftime('%Y%m%d%H%M%S', HoraActual)
+    fichero.write(str(HoraActual) + ' ' + Evento + '\r\n')
 
 class XMLHandler(ContentHandler):   
 
@@ -88,7 +96,7 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                 encontrado = True
         return encontrado
 
-
+    NONCE = []
 
     def handle(self):
         #while 1:
@@ -102,6 +110,8 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
             USER = Data_lines[2]
             print("La peticion es: ", METHOD)
             print("Listening...")
+            Evento = 'Receieved from ' + str(self.client_address[0]) + ':' + str(self.client_address[1]) + ': ' + text.decode('utf-8')
+            FICH_LOG(Evento)
 
             if METHOD == 'REGISTER':
                 
@@ -109,16 +119,12 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                 expires = int(EXPIRES)
                 Dir_IP = self.client_address[0]
                 Puerto = self.client_address[1]
-
-                #Sin autenticación
-
                 LINEA = "REGISTER sip: " + ":" + " SIP/2.0\r\n" + "Expires: " + "\r\n"
                 Hora_actual = time.time()
                 Time_Exp = Hora_actual + int(EXPIRES)
                 Dir_IP = self.client_address[0]
                 PUERTO_USER = Data_lines[3].upper()
                 print (PUERTO_USER)
-
                 self.json2registered()
 
                 self.dicc_clientes[USER] = {"address": Dir_IP, 
@@ -126,6 +132,29 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                                             "tiempo_exp": Time_Exp}
 
                 Lista_Expirados = []
+                #Sin autenticación
+                
+                if 'Digest' not in Data_lines:
+                    self.NONCE.append(str(random.randint(00000,99999)))
+
+                    mensaje = 'SIP/2.0 401 Unauthorized\r\n'
+                    mensaje += 'WWW Authenticate: Digest nonce='
+                    mensaje += self.NONCE[0] + '\r\n\r\n'
+
+					#Enviamos el mensaje de respuesta:
+                    self.wfile.write(bytes(mensaje, 'utf-8'))
+                else:
+    					#Guardamos la peticion REGISTER:
+                    self.PORT = text.decode('utf-8').split()[1].split(':')[2]
+                    self.USER = text.decode('utf-8').split()[1].split(':')[1]
+                    self.EXPIRES = text.decode('utf-8').split()[4]
+                    hresponse = text.decode('utf-8').split()[-1].split('=')[1]
+
+                #Consultamos con el fichero de PASSWD:
+                fich = open(PASSWD_DATABASE , 'r')
+                line = fich.readlines()
+                fich.close()
+
                 for user in self.dicc_clientes:
                     if Hora_actual >= self.dicc_clientes[user]["tiempo_exp"]:
                         Lista_Expirados.append(user)
@@ -138,6 +167,9 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
                 self.wfile.write(b" SIP/2.0 200 OK\r\n\r\n")
                 print(self.dicc_clientes)
+                Evento = 'Sent to ' + str(self.client_address[0]) + ':' 
+                Evento += str(self.client_address[1]) + ': ' + 'SIP/2.0 401 Unauthorized\r\n' + 'WWW Authenticate: Digest nonce="43558789"'
+                FICH_LOG(Evento)
 
             elif METHOD == 'INVITE':
 
@@ -184,6 +216,8 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                         imprimir = data.decode('utf-8')
                         print(imprimir)
                         self.wfile.write(data)
+                        Evento = 'Sent to ' + str(self.client_address[0]) + ':' + str(self.client_address[1]) + ': ' + text.decode('utf-8')
+                        FICH_LOG(Evento)
 
                     else:
                         msg = "SIP/2.0 404 User Not Found\r\n" + "Via: SIP/2.0/UDP " + "branch=z9hG4bKnashds7\r\n\r\n"
@@ -210,6 +244,8 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                             my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
                             data = my_socket.recv(1024)
                     print("he entrado en el ack")
+                    Evento = 'Sent to ' + str(self.client_address[0]) + ':' + str(self.client_address[1]) + ': ' + text.decode('utf-8')
+                    FICH_LOG(Evento)
 
             elif METHOD == "BYE":
                 
@@ -234,17 +270,23 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                             my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                             my_socket.connect(('127.0.0.1', int(puerto)))
                             my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
+                            Evento = 'Sent to ' + str(self.client_address[0]) 
+                            Evento += ':' + str(self.client_address[1]) + ': ' + text.decode('utf-8')
+                            FICH_LOG(Evento)
 
             else:
                 print("Mal")
 
 
 if __name__ == "__main__":
-
+    Evento = 'Starting...'
+    FICH_LOG(Evento)
     # Creamos servidor de eco y escuchamos
     serv = socketserver.UDPServer((PROXY_IP, int(PROXY_PUERTO)), SIPProxyRegisterHandler)
     print("Server " + PROXY_NAME + " listening at port " + PROXY_PUERTO + " ...")
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
+        Evento = 'Finishing'
+        FICH_LOG(Evento)
         print("Finalizando...")

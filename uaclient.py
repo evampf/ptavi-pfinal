@@ -19,6 +19,13 @@ METHOD = sys.argv[2].upper()
 OPCION = sys.argv[3]
 print(CONFIG)
 
+def FICH_LOG(Evento):
+    
+    fichero = open('LogUaClient.txt', 'a+')
+    HoraActual = time.gmtime(time.time())
+    HoraActual = time.strftime('%Y%m%d%H%M%S', HoraActual)
+    fichero.write(str(HoraActual) + ' ' + Evento + '\r\n')
+
 class UACLIENT(ContentHandler):
 
 	if len(sys.argv) != 4:
@@ -76,7 +83,10 @@ if __name__ == "__main__":
 		my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
 		data = my_socket.recv(1024)
 		print(data.decode('utf-8'))
+		Evento = 'Sent to ' + PROXY_IP + ':' + PROXY_PUERTO + ': ' + LINEA
+		FICH_LOG(Evento)
 
+	
 	if METHOD == "INVITE":
 		LINEA = "INVITE sip: " + OPCION + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o="
 		LINEA += ACCOUNT_USERNAME + " " + IP_SERVER + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m=audio "
@@ -88,12 +98,19 @@ if __name__ == "__main__":
 		my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
 		data = my_socket.recv(1024)
 		print(data.decode('utf-8'))
+		Evento = 'Sent to ' + str(PROXY_IP) + ':'
+		Evento += str(PROXY_PUERTO) + ': ' + LINEA
+		FICH_LOG(Evento)
 
 	elif METHOD == "BYE":
 		LINEA = "BYE sip: " + OPCION + " SIP/2.0\r\n"
 		print (LINEA)
-
+		Evento = 'Sent to ' + PROXY_IP + ':' + PROXY_PUERTO + ': ' + LINEA
+		FICH_LOG(Evento)
+		
 	else:
+		Evento = 'Sent to ' + PROXY_IP + ':' + PROXY_PUERTO + ': ' + LINEA
+		FICH_LOG(Evento)
 		print('Usage: python uaclient.py config method option')
 
 
@@ -101,6 +118,7 @@ my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
 data = my_socket.recv(1024)
 datos_recibido = data.decode('utf-8').split()
 imprime = data.decode('utf-8')
+
 print('Recibiendo:', imprime)
 
 recibo = data.decode('utf-8').split(' ')
@@ -111,7 +129,11 @@ if (recibo[2] == 'Trying' and recibo[5] == 'Ring' and recibo[8] == 'OK'):
 	
     linea = 'ACK sip:' + OPCION + ":" + PUERTO_SERVER + ' SIP/2.0'
     my_socket.send(bytes(linea, 'utf-8') + b'\r\n\r\n')
-
+    Evento = 'Receieved from ' + PROXY_IP
+    Evento += ':' + PUERTO_SERVER + ': ' + LINEA
+    FICH_LOG(Evento)
+    Evento = 'Sent to: ' + AUDIO_PUERTO + ': ' + 'cancion.mp3'
+    FICH_LOG(Evento)
     aEjecutar = './mp32rtp -i 127.0.0.1 -p '
     aEjecutar += AUDIO_PUERTO + ' < ' + AUDIO_PATH
     print('Vamos a ejecutar', aEjecutar)

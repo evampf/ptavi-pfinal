@@ -5,13 +5,23 @@ import sys
 import os
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
+import time
 
 CONFIG = sys.argv [1]
 
 if len(sys.argv) != 2:
     sys.exit("Usage: python uaserver.py config")
 
+def FICH_LOG(Evento):
+		
+	fichero = open('LogUaClient.txt', 'a+')
+	HoraActual = time.gmtime(time.time())
+	HoraActual = time.strftime('%Y%m%d%H%M%S', HoraActual)
+	fichero.write(str(HoraActual) + ' ' + Evento + '\r\n')
+
+
 class XMLHandler(ContentHandler):   
+
 
 	def __init__(self):
 	    self.lista = []
@@ -97,6 +107,9 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 			mensaje += b" RTP\r\n\r\n"
 			self.wfile.write(mensaje)
 			print("llega aqui ")
+			Evento = 'Received from ' + PROXY_IP
+			Evento += ':' + PROXY_PORT + ': ' + mensaje.decode('utf-8')
+			FICH_LOG(Evento)
 
 		elif datos[0] == 'ACK':
     		
@@ -106,14 +119,24 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 			print('Ejecutando...', aEjecutar)
 			os.system(aEjecutar)
 			print('Fin de la cancion')
+			Evento = 'Sent to ' + PROXY_IP
+			Evento += ':' + mi_puerto + ': ' + 'cancion.mp3'
+			FICH_LOG(Evento)
 		
 		elif datos[0] == 'BYE':
 			self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
+			Evento = 'Received from ' + regproxy_ip
+			Evento += ':' + PROXY_PORT + ': ' + mensaje.decode('utf-8')
+			FICH_LOG(Evento)
+
 
 
 if __name__ == "__main__":
+    	
     serv = socketserver.UDPServer((UAS_IP, int(UASERVER_PORT)), EchoHandler)
     print("Listening...")
+
+
     try:
         serv.serve_forever()
     except KeyboardInterrupt:

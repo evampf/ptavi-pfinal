@@ -1,0 +1,248 @@
+20170626205434 Starting...
+20170626205445 Finishing
+20170626205554 Starting...
+20170626205555 Receieved from 127.0.0.1:54791: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626205555 Sent to 127.0.0.1:54791: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205555 Receieved from 127.0.0.1:54791: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626205555 Sent to 127.0.0.1:54791: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205602 Receieved from 127.0.0.1:50886: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+
+20170626205602 Sent to 127.0.0.1:50886: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205602 Receieved from 127.0.0.1:50886: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+
+20170626205602 Sent to 127.0.0.1:50886: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205604 Receieved from 127.0.0.1:55572: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626205604 Receieved from 127.0.0.1:55572: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626205604 Receieved from 127.0.0.1:55572: ACK sip:hermione@harry.com:5690 SIP/2.0
+
+
+20170626205606 Finishing
+20170626205647 Starting...
+20170626205648 Receieved from 127.0.0.1:52118: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+
+20170626205648 Sent to 127.0.0.1:52118: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205648 Receieved from 127.0.0.1:52118: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+
+20170626205648 Sent to 127.0.0.1:52118: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205650 Receieved from 127.0.0.1:57819: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626205650 Sent to 127.0.0.1:57819: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205650 Receieved from 127.0.0.1:57819: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626205650 Sent to 127.0.0.1:57819: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626205652 Receieved from 127.0.0.1:60238: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626205652 Sent to 127.0.0.1:60238: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626205652 Receieved from 127.0.0.1:60238: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626205652 Sent to 127.0.0.1:60238: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626205652 Receieved from 127.0.0.1:60238: ACK sip:hermione@harry.com:5690 SIP/2.0
+
+
+20170626205652 Sent to 127.0.0.1:60238: ACK sip:hermione@harry.com:5690 SIP/2.0
+
+
+20170626205655 Finishing
+20170626210711 Starting...
+20170626210714 Receieved from 127.0.0.1:64318: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626210714 Receieved from 127.0.0.1:64318: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626210716 Finishing
+20170626210746 Starting...
+20170626210747 Receieved from 127.0.0.1:50964: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626210747 Receieved from 127.0.0.1:50964: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626210749 Finishing
+20170626210816 Starting...
+20170626210817 Receieved from 127.0.0.1:62095: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626210817 Sent to 127.0.0.1:62095: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626210817 Receieved from 127.0.0.1:62095: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626210817 Sent to 127.0.0.1:62095: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626210835 Receieved from 127.0.0.1:51262: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+
+20170626210835 Sent to 127.0.0.1:51262: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626210835 Receieved from 127.0.0.1:51262: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+
+20170626210835 Sent to 127.0.0.1:51262: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626210838 Receieved from 127.0.0.1:63677: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626210838 Receieved from 127.0.0.1:63677: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626210845 Receieved from 127.0.0.1:59876: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626210845 Sent to 127.0.0.1:59876: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626210845 Receieved from 127.0.0.1:59876: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626210845 Sent to 127.0.0.1:59876: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+
+20170626210845 Receieved from 127.0.0.1:59876: ACK sip:hermione@harry.com:5690 SIP/2.0
+
+
+20170626210845 Sent to 127.0.0.1:59876: ACK sip:hermione@harry.com:5690 SIP/2.0
+
+
+20170626210847 Finishing
+20170626211036 Starting...
+20170626211150 Receieved from 127.0.0.1:50554: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626211150 Sent to 127.0.0.1:50554: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"
+20170626211150 Receieved from 127.0.0.1:50554: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+
+20170626211150 Sent to 127.0.0.1:50554: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="43558789"

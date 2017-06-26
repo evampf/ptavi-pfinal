@@ -1,0 +1,504 @@
+20170626173029 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626173055 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626173055 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626191553 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626191553 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626191603 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626191603 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626191610 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626191610 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626191610 Sent to: 5679: cancion.mp3
+20170626203420 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626203420 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626203422 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626203422 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626203427 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626203427 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626203427 Sent to: 5679: cancion.mp3
+20170626204406 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626204406 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626204408 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626204408 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626204409 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204409 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204409 Sent to: 5679: cancion.mp3
+20170626204445 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204445 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204445 Sent to: 5679: cancion.mp3
+20170626204503 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204503 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204503 Sent to: 5679: cancion.mp3
+20170626204526 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204526 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204526 Sent to: 5679: cancion.mp3
+20170626204549 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204549 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204549 Sent to: 5679: cancion.mp3
+20170626204638 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204639 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204639 Sent to: 5679: cancion.mp3
+20170626204702 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204702 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204702 Sent to: 5679: cancion.mp3
+20170626204822 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204822 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204822 Sent to: 5679: cancion.mp3
+20170626204840 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626204840 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204840 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626204840 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626204840 Sent to: 5679: cancion.mp3
+20170626205439 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626205439 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626205555 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626205555 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626205602 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626205602 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626205604 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626205604 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626205604 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626205604 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626205604 Sent to: 5679: cancion.mp3
+20170626205648 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626205648 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626205650 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626205650 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626205652 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626205652 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626205652 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626205652 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626205652 Sent to: 5679: cancion.mp3
+20170626210714 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626210714 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626210747 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626210747 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626210817 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626210817 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626210835 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626210835 Sent to 127.0.0.1:5676: REGISTER sip: ronwhisley@harry.com: 5690 SIP/2.0
+Expires: 3600
+
+20170626210838 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626210845 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626210845 Sent to 127.0.0.1:5676: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626210845 Received from 127.0.0.1:5676: SIP/2.0 100 Trying 
+
+SIP/2.0 180 Ring 
+
+SIP/2.0 200 OK 
+
+Content-Type: application/sdp
+
+v=0
+o=r 127.0.0.1 
+s=misesion
+t=0
+m=audio 5676 RTP
+
+
+20170626210845 Receieved from 127.0.0.1:5690: INVITE sip: hermione@harry.com SIP/2.0
+Content-Type: application/sdp
+
+v=0
+o=ronwhisley@harry.com 127.0.0.1
+s=misesion
+t=0
+m=audio 5679 RTP
+
+20170626210845 Sent to: 5679: cancion.mp3
+20170626211122 Sent to 127.0.0.1:5676: BYE sip: hermione@harry.com SIP/2.0
+
+20170626211150 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626211150 Sent to 127.0.0.1:5676: REGISTER sip: hermione@harry.com: 5689 SIP/2.0
+Expires: 3600
+
+20170626211216 Sent to 127.0.0.1:5676: BYE sip: hermione@harry.com SIP/2.0
+
