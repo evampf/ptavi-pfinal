@@ -89,11 +89,10 @@ if __name__ == "__main__":
 		data = my_socket.recv(1024)
 		print(data.decode('utf-8'))
 
-	
-
 	elif METHOD == "BYE":
 		LINEA = "BYE sip: " + OPCION + " SIP/2.0\r\n"
 		print (LINEA)
+
 	else:
 		print('Usage: python uaclient.py config method option')
 
@@ -108,10 +107,11 @@ recibo = data.decode('utf-8').split(' ')
 #print("EVA ESTO ES RECIBO:", recibo2)
 print("Data:", recibo)
 
-
 if (recibo[2] == 'Trying' and recibo[5] == 'Ring' and recibo[8] == 'OK'):
+	
     linea = 'ACK sip:' + OPCION + ":" + PUERTO_SERVER + ' SIP/2.0'
     my_socket.send(bytes(linea, 'utf-8') + b'\r\n\r\n')
+
     aEjecutar = './mp32rtp -i 127.0.0.1 -p '
     aEjecutar += AUDIO_PUERTO + ' < ' + AUDIO_PATH
     print('Vamos a ejecutar', aEjecutar)

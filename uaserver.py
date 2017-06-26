@@ -64,35 +64,44 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 		"""Escribe dirección y puerto del cliente."""
 	#while 1:
 		text = self.rfile.read()
-		print("El cliente nos manda:", text.decode('utf-8'))
 		datos = text.decode('utf-8').split()
 		print("datos:", datos)
+		print("El cliente nos manda:", text.decode('utf-8'))
+		REQUESTS = ['INVITE', 'ACK', 'BYE']
+
+		if datos[0] == 'INVITE':
+			RTP_PORT_RECIBIDO = datos[12]
+			self.lista.append(RTP_PORT_RECIBIDO)
+			#Hemos añadido el puerto a un diccionario
+			print("Puerto RTP nos envia el cliente en INVITE: ")
+			print(RTP_PORT_RECIBIDO)
+
+		if not datos[0] in REQUESTS:
+			LINE_405 = 'SIP/2.0 405 Method Not Allowed\r\n\r\n'
+			self.wfile.write(LINE_405)
 
 		if datos[0] == 'INVITE':
 
 			metodo = datos[0]
 			print("este es metodo:", metodo)
+			self.lista.append(RTP_PORT_RECIBIDO)
+
 			mensaje = b'SIP/2.0 100 Trying \r\n\r\n'
 			mensaje += b'SIP/2.0 180 Ring \r\n\r\n'
 			mensaje += b'SIP/2.0 200 OK \r\n\r\n'
 			mensaje += b"Content-Type: application/sdp\r\n\r\n"
-			mensaje += b"v=0\r\n" + b"o=" 
+			mensaje += b"v=0\r\n" + b"o="
 			mensaje += ACCOUNT[2].encode('utf-8') + b" "
 			mensaje += UAS_IP.encode('utf-8') + b" \r\n" + b"s=misesion\r\n"
-			mensaje += b"t=0\r\n" + b"m=audio " + RTP_PORT[2].encode('utf-8')
+			mensaje += b"t=0\r\n" + b"m=audio " + PROXY_PORT.encode('utf-8')
 			mensaje += b" RTP\r\n\r\n"
 			self.wfile.write(mensaje)
 			print("llega aqui ")
 
 		elif datos[0] == 'ACK':
-			
-			metodo = datos[0]
-			print("metodo 2:", metodo)
-			puerto = self.RTP_PORT[0]
-			print ("puerto:", puerto)
-			print("Entra en el ACK")
-			self.wfile.write(b'ACK')
-			aEjecutar = './mp32rtp -i 127.0.0.1 -p ' + puerto + ' < '
+    		
+			mi_puerto = self.lista[1]
+			aEjecutar = './mp32rtp -i 127.0.0.1 -p ' + mi_puerto + ' < '
 			aEjecutar += AUDIO_PATH
 			print('Ejecutando...', aEjecutar)
 			os.system(aEjecutar)

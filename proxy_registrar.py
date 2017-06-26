@@ -96,7 +96,7 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
             data_text = text.decode('utf-8')
             Data_lines = data_text.split()
             METHOD = Data_lines[0].upper()
-            print("ESTO ES DATA_LINES", Data_lines)
+            print("ESTO ES DATA_TEXT", data_text)
             LINEA_SIP = Data_lines[2].split(" ")[0]
             print ("ESTO ES LINEA_SIP:", LINEA_SIP)
             USER = Data_lines[2]
@@ -172,13 +172,14 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                             datospuerto = "5689"
                         
                         puerto = datospuerto
+                        #print('puerto', puerto)
 
                         LINEA = "INVITE sip: " + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
-                        LINEA += " " + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" + " RTP\r\n"
+                        LINEA += " " + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m=audio " + datospuerto + " RTP\r\n"
                         my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                         my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         my_socket.connect(('127.0.0.1', int(puerto)))
-                        my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
+                        my_socket.send(bytes(data_text, 'utf-8') + b'\r\n')
                         data = my_socket.recv(1024)
                         imprimir = data.decode('utf-8')
                         print(imprimir)
@@ -191,7 +192,7 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
             elif METHOD == "ACK":
                 
                 LINEA_ACK = text.decode('utf-8')
-                print("esta es la linea_ack:", LINEA_ACK)
+                print("Esta es la linea_ack:", LINEA_ACK)
                 USER_SIP = LINEA_SIP.upper()
                 USER_INVITADO = Data_lines[2].upper()
 
@@ -200,28 +201,14 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                     datos_clientes = json.load(JsonFile)
                     cliente = datos_clientes
                     print ("cliente:", cliente)
-                    encontrado = False
-
                     for usuario in cliente:
-                        usuario2 = usuario.split(":")[0].split(':')[0].upper()
-                        if usuario2 == USER_INVITADO:
-                            encontrado = True
-                    
-                    if encontrado:  
-                    
-                        if USER_INVITADO == "RONWHISLEY@HARRY.COM":
-                            datospuerto = "5690"
-                        if USER_INVITADO == "HERMIONE@HARRY.COM": 
-                            datospuerto = "5689"
-                        
-                        puerto = datospuerto      
-
-                        my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                        my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                        my_socket.connect(('127.0.0.1', int(puerto)))
-                        my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
-                        imprimir = data.decode('utf-8')
-
+                        if usuario == USER_INVITADO:
+                            portdata = datos_clientes[USER_INVITADO]['port'] 
+                            my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                            my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                            my_socket.connect(('127.0.0.1', int(portdata)))
+                            my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
+                            data = my_socket.recv(1024)
                     print("he entrado en el ack")
 
             elif METHOD == "BYE":
@@ -247,11 +234,6 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
                             my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                             my_socket.connect(('127.0.0.1', int(puerto)))
                             my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
-
-
-
-
-
 
             else:
                 print("Mal")
