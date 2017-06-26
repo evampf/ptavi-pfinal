@@ -39,21 +39,20 @@ parser = make_parser()
 cHandler = XMLHandler()
 parser.setContentHandler(cHandler)
 parser.parse(open(sys.argv[1]))
-datos = cHandler.get_tags()
-print(datos)
+UASERVER = cHandler.get_tags()
+print(UASERVER)
 
 'DATOS'
 #Saco datos del diccionario creado
 
-ACCOUNT = datos[0]['account']['username']
-print("account: ", ACCOUNT)
-UASERVER_PORT = datos[1]['uaserver']['puerto']
-print("puerto de escucha del UAServer:", UASERVER_PORT)
-UAS_IP = datos[1]['uaserver']['ip']
-print("direccion IP del UASERVER: ", UAS_IP)
-RTP_PORT = datos[2]['rtpaudio']['puerto']
-PROXY_PORT = datos[3]['regproxy']['puerto']
-PROXY_IP = datos[3]['regproxy']['ip']
+ACCOUNT = UASERVER[0]['account']['username']
+UASERVER_PORT = UASERVER[1]['uaserver']['puerto']
+UAS_IP = UASERVER[1]['uaserver']['ip']
+RTP_PORT = UASERVER[2]['rtpaudio']['puerto']
+PROXY_PORT = UASERVER[3]['regproxy']['puerto']
+PROXY_IP = UASERVER[3]['regproxy']['ip']
+LOG_PATH = UASERVER[4]['log']['path']
+AUDIO_PATH = UASERVER[5]['audio']['path']
 
 
 
@@ -86,12 +85,22 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 			print("llega aqui ")
 
 		elif datos[0] == 'ACK':
-
-			print("Reproduciendo")
-			aEjecutar = './mp32rtp -i 127.0.0.1 -p ' + self.RTP_PORT[0] + ' < '
-			aEjecutar += SONG
+			
+			metodo = datos[0]
+			print("metodo 2:", metodo)
+			puerto = self.RTP_PORT[0]
+			print ("puerto:", puerto)
+			print("Entra en el ACK")
+			self.wfile.write(b'ACK')
+			aEjecutar = './mp32rtp -i 127.0.0.1 -p ' + puerto + ' < '
+			aEjecutar += AUDIO_PATH
+			print('Ejecutando...', aEjecutar)
 			os.system(aEjecutar)
-			print('End')
+			print('Fin de la cancion')
+		
+		elif datos[0] == 'BYE':
+			self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
+
 
 if __name__ == "__main__":
     serv = socketserver.UDPServer((UAS_IP, int(UASERVER_PORT)), EchoHandler)

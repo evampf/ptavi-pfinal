@@ -190,46 +190,68 @@ class SIPProxyRegisterHandler(socketserver.DatagramRequestHandler):
 
             elif METHOD == "ACK":
                 
-                LINEA = text.decode('utf-8')
-                LINEA_ACK = LINEA
-                print('LINEA ACK', LINEA_ACK)
+                LINEA_ACK = text.decode('utf-8')
+                print("esta es la linea_ack:", LINEA_ACK)
                 USER_SIP = LINEA_SIP.upper()
-                print("USER_SIP:", USER_SIP)
                 USER_INVITADO = Data_lines[2].upper()
-                print("USUARIO INVITADO:", USER_INVITADO)
 
+    
                 with open("miregistro.json") as JsonFile:
                     datos_clientes = json.load(JsonFile)
                     cliente = datos_clientes
                     print ("cliente:", cliente)
-
                     encontrado = False
+
                     for usuario in cliente:
-                        print("MIRA AQUI:", usuario)
                         usuario2 = usuario.split(":")[0].split(':')[0].upper()
-                        print ("usuario2:", usuario2)
                         if usuario2 == USER_INVITADO:
                             encontrado = True
-                            
+                    
                     if encontrado:  
                     
                         if USER_INVITADO == "RONWHISLEY@HARRY.COM":
                             datospuerto = "5690"
-                        elif USER_INVITADO == "HERMIONE@HARRY.COM": 
+                        if USER_INVITADO == "HERMIONE@HARRY.COM": 
                             datospuerto = "5689"
                         
-                        puerto = datospuerto
+                        puerto = datospuerto      
 
-                        LINEA = "INVITE sip: " + " SIP/2.0\r\n" + "Content-Type: application/sdp\r\n\r\n" + "v=0\r\n" + "o = "
-                        LINEA += " " + "\r\n" + "s=misesion\r\n" + "t=0\r\n" + "m = audio" + " RTP\r\n"
                         my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                         my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         my_socket.connect(('127.0.0.1', int(puerto)))
-                        my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
-                
+                        my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
+                        imprimir = data.decode('utf-8')
+
+                    print("he entrado en el ack")
 
             elif METHOD == "BYE":
+                
                 LINEA = "BYE sip: " + " SIP/2.0\r\n"
+                USER_BORRADO = Data_lines[2].upper()
+
+                with open("miregistro.json") as JsonFile:
+                    datos_clientes = json.load(JsonFile)
+                    cliente = datos_clientes
+                    for usuario in cliente:
+                        usuarioborrado = usuario.split(":")[0].split(':')[0].upper()
+
+                        if USER_BORRADO == "RONWHISLEY@HARRY.COM":
+                                datospuerto = "5690"
+                        if USER_BORRADO == "HERMIONE@HARRY.COM": 
+                                datospuerto = "5689"
+                        
+                        puerto = datospuerto   
+
+                        if usuarioborrado == USER_BORRADO:
+                            my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                            my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                            my_socket.connect(('127.0.0.1', int(puerto)))
+                            my_socket.send(bytes(LINEA_ACK, 'utf-8') + b'\r\n')
+
+
+
+
+
 
             else:
                 print("Mal")

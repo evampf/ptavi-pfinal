@@ -11,6 +11,7 @@ import time
 import json
 import hashlib
 import random
+import os
 
 
 CONFIG = sys.argv[1]
@@ -88,6 +89,36 @@ if __name__ == "__main__":
 		data = my_socket.recv(1024)
 		print(data.decode('utf-8'))
 
+	
+
 	elif METHOD == "BYE":
 		LINEA = "BYE sip: " + OPCION + " SIP/2.0\r\n"
 		print (LINEA)
+	else:
+		print('Usage: python uaclient.py config method option')
+
+
+my_socket.send(bytes(LINEA, 'utf-8') + b'\r\n')
+data = my_socket.recv(1024)
+datos_recibido = data.decode('utf-8').split()
+imprime = data.decode('utf-8')
+print('Recibiendo:', imprime)
+
+recibo = data.decode('utf-8').split(' ')
+#print("EVA ESTO ES RECIBO:", recibo2)
+print("Data:", recibo)
+
+
+if (recibo[2] == 'Trying' and recibo[5] == 'Ring' and recibo[8] == 'OK'):
+    linea = 'ACK sip:' + OPCION + ":" + PUERTO_SERVER + ' SIP/2.0'
+    my_socket.send(bytes(linea, 'utf-8') + b'\r\n\r\n')
+    aEjecutar = './mp32rtp -i 127.0.0.1 -p '
+    aEjecutar += AUDIO_PUERTO + ' < ' + AUDIO_PATH
+    print('Vamos a ejecutar', aEjecutar)
+    os.system(aEjecutar)
+    print('Ha acabado la cancion')
+
+
+
+
+
